@@ -1,6 +1,6 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { firstValueFrom } from "rxjs";
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -8,27 +8,15 @@ import { firstValueFrom } from "rxjs";
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  constructor(
-    private httpClient: HttpClient
-  ) {}
+  constructor(private httpClient: HttpClient) {}
 
-  async requestWithEncodedSpace() {
-    // URL with an encoded space (via the `+` character) works as expected.
-    const url = 'https://swapi.dev/api/people/?search=r2+d2';
+  async makeRequest() {
+    const result = await lastValueFrom(
+      this.httpClient.get(
+        'https://cdn.arcgis.com/sharing/rest/content/items/de26a3cf4cc9451298ea173c4b324736/resources/styles/root.json?f=json'
+      )
+    );
 
-    await this.makeRequest(url);
-  }
-
-  async requestWithoutEncodedSpace() {
-    // URL with a non-encoded space fails on hybrid iOS.
-    const url = 'https://swapi.dev/api/people/?search=r2 d2';
-
-    await this.makeRequest(url);
-  }
-
-  private async makeRequest(url: string) {
-    const result = await firstValueFrom(this.httpClient.get(url));
-
-    console.dir(result);
+    console.log(result);
   }
 }

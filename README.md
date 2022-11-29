@@ -58,17 +58,23 @@ To debug the WebView, follow the instructions [here](https://ionicframework.com/
 
 ## Steps to Reproduce
 
-- Get the app running by following [Running the App](#running-the-app) for iOS.
-- Once the app is running, open the Safari Web Inspector by following instructions in [Debugging the App](#debugging-the-app). Open the Console view.
-- There are two buttons in the app's UI: `Request With Encoded Space` and `Request Without Encoded Space`.
-  - Their click events will be handled in `/src/app/home/home.page.ts`.
-  - They will make network requests to the [Star Wars API](https://swapi.dev/) using the Angular `HttpClient` which will use the `CapacitorHttp` plugin at a lower-level.
-- Click the button that says `Request With Encoded Space`.
-  - In the console, you'll see the `CapacitorHttp` request and result objects, as well as a printed object of the response body. The request was successful.
-- Now click the button that says `Request Without Encoded Space`.
+- Get the app running by following [Running the App](#running-the-app) for Android.
+- Once the app is running, open the Chrome Dev Tools inspector by following instructions in [Debugging the App](#debugging-the-app). Open the Console view.
+- There is one button in the app's UI: `Make Request`.
+  - The click event will be handled in `/src/app/home/home.page.ts`.
+  - It will make a network request to a particular API endpoint that can reproduce the issue using the Angular `HttpClient` which will use the `CapacitorHttp` plugin at a lower-level.
+- Click the button that says `Make Request`.
   - In the console, you'll see the `CapacitorHttp` request and result objects. The result shows an error:
     - ```json
       {
-        message: "Invalid URL", errorMessage: "Invalid URL"
+        message: "SSLHandshakeException"
       }
+      ```
+    - ```javascript
+      (anonymous)	@	home:228
+      returnResult	@	home:731
+      win.androidBridge.onmessage	@	home:719
+      ```
+  - An unhandled error then follows:
+    - `ERROR Error: Uncaught (in promise): HttpErrorResponse: {"headers":{"normalizedNames":{},"lazyUpdate":null,"headers":{}},"status":0,"statusText":"Unknown Error","url":"https://cdn.arcgis.com/sharing/rest/content/items/de26a3cf4cc9451298ea173c4b324736/resources/styles/root.json?f=json","ok":false,"name":"HttpErrorResponse","message":"Http failure response for https://cdn.arcgis.com/sharing/rest/content/items/de26a3cf4cc9451298ea173c4b324736/resources/styles/root.json?f=json: 0 Unknown Error","error":{"isTrusted":false}}`
 
