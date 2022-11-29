@@ -1,4 +1,4 @@
-# capacitor-http-url-spaces
+# capacitor-http-ssl-handshake-issue
 
 This repo is a reproduction sample app for what appears to be an issue in [Capacitor](https://github.com/ionic-team/capacitor).
 
