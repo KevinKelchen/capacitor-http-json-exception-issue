@@ -62,7 +62,7 @@ To debug the WebView, follow the instructions [here](https://ionicframework.com/
 - Once the app is running, open the Chrome Dev Tools inspector by following instructions in [Debugging the App](#debugging-the-app). Open the Console view.
 - There is one button in the app's UI: `Make Request`.
   - The click event will be handled in `/src/app/home/home.page.ts`.
-  - It will make a network request to a particular API endpoint that can reproduce the issue using the Angular `HttpClient` which will use the `CapacitorHttp` plugin at a lower-level.
+  - It will make a network request to a particular API endpoint that can reproduce the issue using `fetch` which will use the `CapacitorHttp` plugin at a lower-level.
 - Click the button that says `Make Request`.
   - In the console, you'll see the `CapacitorHttp` request and result objects. The result shows an error:
     - ```json
