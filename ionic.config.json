@@ -1,5 +1,5 @@
 {
-  "name": "capacitor-http-ssl-handshake-issue",
+  "name": "capacitor-http-json-exception-issue",
   "integrations": {
     "capacitor": {}
   },

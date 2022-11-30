@@ -1,4 +1,4 @@
-# capacitor-http-ssl-handshake-issue
+# capacitor-http-json-exception-issue
 
 This repo is a reproduction sample app for what appears to be an issue in [Capacitor](https://github.com/ionic-team/capacitor).
 
