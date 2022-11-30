@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -8,15 +6,27 @@ import { lastValueFrom } from 'rxjs';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  constructor(private httpClient: HttpClient) {}
+  constructor() {}
 
   async makeRequest() {
-    const result = await lastValueFrom(
-      this.httpClient.get(
-        'https://cdn.arcgis.com/sharing/rest/content/items/de26a3cf4cc9451298ea173c4b324736/resources/styles/root.json?f=json'
-      )
+    // This request has been converted to a minimal form compared to our production app.
+    // Amongst the modifications include reduced query parameters, reduced headers,
+    // and a mock body that still abides by some of the expected schema.
+    const response = await fetch(
+      'https://api-js.mixpanel.com/track/?verbose=1&ip=1',
+      {
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+        },
+        // Unencoded, the body is:
+        // [{"event": "MyEvent","properties": {}}]
+        // It intentionally does not include an auth token, but the lack of one
+        // shouldn't be needed to demonstrate error/success cases.
+        body: 'data=%5B%0D%0A++++%7B%22event%22%3A+%22MyEvent%22%2C%22properties%22%3A+%7B%7D%7D%0D%0A%5D',
+        method: 'POST',
+      }
     );
 
-    console.log(result);
+    console.log(await response.json());
   }
 }
