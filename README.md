@@ -67,7 +67,7 @@ To debug the WebView, follow the instructions [here](https://ionicframework.com/
   - In the console, you'll see the `CapacitorHttp` request and result objects. The result shows an error:
     - ```json
       {
-        message: "SSLHandshakeException"
+        message: "JSONException"
       }
       ```
     - ```javascript
@@ -75,6 +75,14 @@ To debug the WebView, follow the instructions [here](https://ionicframework.com/
       returnResult	@	home:731
       win.androidBridge.onmessage	@	home:719
       ```
-  - An unhandled error then follows:
-    - `ERROR Error: Uncaught (in promise): HttpErrorResponse: {"headers":{"normalizedNames":{},"lazyUpdate":null,"headers":{}},"status":0,"statusText":"Unknown Error","url":"https://cdn.arcgis.com/sharing/rest/content/items/de26a3cf4cc9451298ea173c4b324736/resources/styles/root.json?f=json","ok":false,"name":"HttpErrorResponse","message":"Http failure response for https://cdn.arcgis.com/sharing/rest/content/items/de26a3cf4cc9451298ea173c4b324736/resources/styles/root.json?f=json: 0 Unknown Error","error":{"isTrusted":false}}`
-
+  - Unhandled errors then follow:
+    - `Unhandled Promise rejection: JSONException ; Zone: <root> ; Task: null ; Value: Error: JSONException`
+    - `ERROR Error: Uncaught (in promise): Error: JSONException`
+  - In the success case, the following will be logged to the console:
+    - ```json
+      {
+        error: "token, missing or empty",
+        status: 0
+      }
+      ```
+    - While the message from the server endpoint is, in a sense, unsuccessful as far as server validation goes, it does mean that the request was handled successfully by the client. The complaint about the `token` in the error message is expected because in the repro we are not passing up an auth token.
